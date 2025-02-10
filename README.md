@@ -76,7 +76,7 @@ The Manga Tracker Dashboard connects to the AniList GraphQL API to retrieve your
     ANILIST_USER=yourAniListUsername
     PORT=5001
    
-### Usage
+## Usage
 
 **Method 1: Seperate Terminals**
   1. **Backend**
@@ -99,7 +99,7 @@ Click the List View or Grid View buttons to change how your manga items are arra
 **External Links:**
 Click on an individual manga item (or a dedicated “show external links” button within each item) to search for external reading links.
 
-### Future Plans
+## Future Plans
 
 **Additional External Website Integrations:**
     • Support for additional manga reading websites beyond Comick (for non‑adult) and Omegascans/Toongod (for adult).
