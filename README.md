@@ -56,10 +56,6 @@ The Manga Tracker Dashboard connects to the AniList GraphQL API to retrieve your
 - [Node.js](https://nodejs.org/) (v14+ is recommended)
 - npm
 
-### Project Structure
-
-/manga-tracker /backend package.json src/ controllers/ services/ app.js /frontend package.json src/ components/ services/ App.js
-
 ### Setup
 
 1. **Clone the Repository:**
@@ -91,3 +87,35 @@ The Manga Tracker Dashboard connects to the AniList GraphQL API to retrieve your
      Open another terminal, navigate to the frontend folder, and run:
      ```bash
       npm start
+     
+### Using the Dashboard
+**Filter and Search:**
+Use the Adult Only / Show All toggle buttons to switch between filtering modes.
+Enter a search term into the search bar to use fuzzy‑matching on titles and synonyms.
+
+**View Toggle:**
+Click the List View or Grid View buttons to change how your manga items are arranged.
+
+**External Links:**
+Click on an individual manga item (or a dedicated “show external links” button within each item) to search for external reading links.
+
+### Future Plans
+
+**Additional External Website Integrations:**
+    • Support for additional manga reading websites beyond Comick (for non‑adult) and Omegascans/Toongod (for adult).
+    • A mechanism to dynamically update website integration without changing the core code.
+
+**User Account Integration:**
+    • Display AniList username and avatar on the dashboard header.
+    • Allow users to authenticate and save preferences.
+
+**Enhanced Adult Filtering:**
+    • Improve the logic that determines adult content using both media.isAdult and tag information.
+    • Provide more granular filters (e.g. by genre or content warnings).
+
+**Improved UI/UX:**
+    • Further modernize the dashboard (animations, transitions, etc.).
+    • Responsive design improvements for mobile and tablet views.
+
+**Backend Search Optimization:**
+    • Option to move Fuse.js fuzzy search to the backend for large collections.
