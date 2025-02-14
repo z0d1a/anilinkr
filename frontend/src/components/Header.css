@@ -1,0 +1,41 @@
+/* src/components/Header.css */
+.app-header {
+    background-color: #24273a; /* base dark */
+    padding: 16px 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid #363a4f; /* surface */
+    margin-bottom: 24px;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .app-title {
+    color: #cad3f5; /* text */
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .username {
+    color: #f5a97f; /* peach accent */
+    font-size: 1.2rem;
+    margin-right: 8px;
+  }
+  
+  /* New style for the user avatar */
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #cad3f5;
+  }
+  

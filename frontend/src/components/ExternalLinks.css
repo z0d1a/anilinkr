@@ -1,0 +1,37 @@
+/* src/components/ExternalLinks.css */
+.external-links-container {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #24273a; /* dark base */
+    border-radius: 6px;
+  }
+  
+  .external-links-group h4 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #cad3f5;
+  }
+  
+  .external-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+  }
+  
+  .external-link-card {
+    display: block;
+    padding: 12px;
+    background-color: #363a4f;
+    border: 1px solid #4c4f69;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #f5a97f;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .external-link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  }
+  

@@ -1,0 +1,30 @@
+/* src/components/GlobalSearchIndicator.css */
+.global-search-indicator {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #363a4f;
+    color: #cad3f5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+  
+  .indicator-spinner {
+    border: 3px solid rgba(205, 211, 245, 0.3);
+    border-top: 3px solid #cad3f5;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  

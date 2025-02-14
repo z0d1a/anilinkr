@@ -1,0 +1,11 @@
+{
+    "name": "manga-tracker",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+    },
+    "devDependencies": {
+        "concurrently": "^7.6.0"
+    }
+}
