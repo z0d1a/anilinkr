@@ -1,10 +1,44 @@
 /* src/components/Header.css */
+
+/* Import a modern system or web font of your choice */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
 .app-header {
-    background-color: #24273a; /* base dark */
-    padding: 16px 24px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid #363a4f; /* surface */
+  /* A subtle dark gradient for the header background */
+  background: linear-gradient(135deg, #2a2d3a, #24273a);
+  padding: 20px 32px;
+  border-bottom: 1px solid #363a4f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+  /* Rounded corners */
+  border-radius: 12px;
+
+  /* Animations and spacing */
+  animation: fadeInDown 0.5s ease-out;/* src/components/Header.css */
+
+  @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+  
+  .app-header {
+    background: linear-gradient(135deg, #2a2d3a, #24273a);
+    padding: 20px 32px;
+    border-bottom: 1px solid #363a4f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
     margin-bottom: 24px;
+    animation: fadeInDown 0.5s ease-out;
+  
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .header-content {
@@ -14,9 +48,13 @@
   }
   
   .app-title {
-    color: #cad3f5; /* text */
-    margin: 0;
     font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    background: linear-gradient(to right, #f5a97f, #8aadf4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   }
   
   .user-info {
@@ -24,18 +62,103 @@
     align-items: center;
   }
   
+  /* Gradient text for the username (or "Welcome, username") */
   .username {
-    color: #f5a97f; /* peach accent */
     font-size: 1.2rem;
-    margin-right: 8px;
+    margin-right: 16px;
+    font-weight: 500;
+    background: linear-gradient(to right, #f5a97f, #8aadf4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   }
   
-  /* New style for the user avatar */
+  /* Avatar container with a gradient border */
+  .avatar-container {
+    display: inline-block;
+    border-radius: 50%;
+    background: linear-gradient(to right, #f5a97f, #8aadf4);
+    padding: 2px; /* how thick the gradient ring is */
+    transition: transform 0.2s ease;
+  }
+  
+  /* On hover, scale the entire container (including the gradient ring) */
+  .avatar-container:hover {
+    transform: scale(1.1);
+  }
+  
   .user-avatar {
-    width: 40px;
-    height: 40px;
+    display: block;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #cad3f5;
+    background-color: #24273a; /* fallback behind the image */
   }
   
+  margin-bottom: 24px;
+
+  /* Use a modern font stack */
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Gradient text for the "anilinkr" title */
+.app-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  /* Create a horizontal gradient for the text */
+  background: linear-gradient(to right, #f5a97f, #8aadf4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Optional subtle text shadow */
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient text for the username greeting */
+.username {
+  font-size: 1.2rem;
+  margin-right: 12px;
+  font-weight: 500;
+
+  /* Same gradient approach */
+  background: linear-gradient(to right, #f5a97f, #8aadf4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #cad3f5;
+  transition: transform 0.2s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
