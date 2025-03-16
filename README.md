@@ -1,6 +1,8 @@
-# Manga Tracker Dashboard
+# anilinkr - Manga Tracker Dashboard
 
 A modern, dark‑themed dashboard to track your manga collection from AniList. This tool integrates your AniList manga list, provides fuzzy search through your titles and synonyms, and automatically finds external reading links from multiple websites (with separate strategies for adult and non‑adult content).
+
+![Alt text](anilinkr.png)
 
 ## Table of Contents
 
