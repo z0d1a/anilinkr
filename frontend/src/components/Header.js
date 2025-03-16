@@ -6,9 +6,9 @@ const Header = ({ username, avatar }) => {
   return (
     <header className="app-header">
       <div className="header-content">
-        <h1 className="app-title">Manga Tracker Dashboard</h1>
+        <h1 className="app-title">anilinkr.</h1>
         <div className="user-info">
-          <span className="username">Welcome, {username}</span>
+          <span className="username">{username}</span>
           {avatar && (
             <img
               src={avatar}
