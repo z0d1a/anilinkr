@@ -75,6 +75,7 @@ The Manga Tracker Dashboard connects to the AniList GraphQL API to retrieve your
     ANILIST_API_URL=https://graphql.anilist.co
     ANILIST_USER=yourAniListUsername
     PORT=5001
+    DEEPSEEK_API_KEY=yourKey //To use Manga Assistant
    
 ## Usage
 
