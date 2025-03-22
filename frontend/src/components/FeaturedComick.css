@@ -1,0 +1,95 @@
+/* src/components/FeaturedComick.css */
+
+.featured-comick-container {
+    padding: 16px;
+    text-align: center;
+    color: #cad3f5;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Gradient heading similar to your other headings */
+  .featured-comick-heading {
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    background: linear-gradient(to right, #f5a97f, #8aadf4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* The grid container with enough spacing */
+  .featured-comick-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 30px;
+    justify-items: center; /* center each card horizontally */
+    margin-top: 16px;
+  }
+  
+  /* The card item container */
+  .featured-comick-item {
+    background-color: #2a2d3a;
+    border: 1px solid #4c4f69;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: left;
+    width: 100%;
+    max-width: 220px; /* Keep consistent card width */
+    transition: transform 0.2s ease;
+  }
+  
+  .featured-comick-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Link that wraps the cover and title */
+  .comick-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  /* Cover image styling */
+  .comick-cover {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #4c4f69;
+  }
+  
+  /* Title styling */
+  .comick-title {
+    font-size: 1rem;
+    margin: 8px 0 4px;
+    color: #cad3f5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Description styling */
+  .comick-desc {
+    font-size: 0.85rem;
+    color: #a5adcb;
+    margin-bottom: 8px;
+    height: 3em; /* optional limit */
+    overflow: hidden;
+  }
+  
+  /* Load More button */
+  .comick-load-more-btn {
+    margin: 16px auto 0 auto;
+    background: linear-gradient(135deg, #f5a97f, #8aadf4);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .comick-load-more-btn:hover {
+    background-color: #0056b3;
+  }
+  

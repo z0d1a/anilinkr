@@ -1,0 +1,186 @@
+/* src/components/FeaturedOmegascans.css */
+
+.featured-container {
+    padding: 16px;
+    text-align: center;
+    color: #cad3f5;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .featured-container h2 {
+    margin-bottom: 16px;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  /* Increased the gap to 24px for more space */
+  .featured-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    justify-items: center;
+  }
+  
+  /* Slightly reduced the card width for more spacing on narrower screens */
+  .featured-item {
+    background-color: #2a2d3a;
+    border: 1px solid #4c4f69;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: left;
+    transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 200px; /* was 220px, reduced to give more space */
+  }
+  
+  .featured-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .featured-cover {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #4c4f69;
+  }
+  
+  .featured-title {
+    font-size: 1rem;
+    margin: 8px 0 4px 0;
+    color: #cad3f5;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  .featured-desc {
+    font-size: 0.85rem;
+    color: #a5adcb;
+    margin-bottom: 8px;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  .read-more-link {
+    font-size: 0.85rem;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  .read-more-link:hover {
+    text-decoration: underline;
+  }
+  
+  .load-more-container {
+    margin-top: 16px;
+  }
+  
+  .load-more-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #f5a97f, #8aadf4);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .load-more-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #e58a68, #7a9fd4);
+  }
+  
+  .loading-text {
+    margin-top: 16px;
+    font-size: 1rem;
+    color: #a5adcb;
+  }
+  
+  .error-text {
+    color: #ed8796;
+  }
+  
+
+/* src/components/FeaturedOmegascans.css */
+
+  
+  .featured-container h2 {
+    margin-bottom: 16px;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: linear-gradient(to right, #f5a97f, #8aadf4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .featured-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .featured-item {
+    background-color: #2a2d3a;
+    border: 1px solid #4c4f69;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: left;
+    transition: transform 0.2s ease;
+  }
+  
+  .featured-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  .featured-cover {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #4c4f69;
+  }
+  
+  .featured-title {
+    font-size: 1rem;
+    margin: 8px 0 4px 0;
+    color: #cad3f5;
+  }
+  
+  .featured-desc {
+    font-size: 0.85rem;
+    color: #a5adcb;
+    margin-bottom: 8px;
+  }
+  
+  .read-more-link {
+    font-size: 0.85rem;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .read-more-link:hover {
+    text-decoration: underline;
+  }
+  
+  .load-more-btn {
+    margin-top: 16px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .load-more-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-text {
+    color: #ed8796;
+  }
+  
+  

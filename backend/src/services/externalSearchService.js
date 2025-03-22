@@ -41,7 +41,7 @@ function normalizeTitle(title) {
 
 /**
  * Verifies a candidate URL by performing a GET request.
- * For Omegascans: if response is OK, we assume it is valid.
+ * For Omegascans: if response.ok, we assume the URL is valid.
  * For Toongod and Comick: if a 403 is returned, we assume it’s valid
  *   (these sites often block “bot-like” requests but the URL is correct).
  * Otherwise, if response is OK, we can inspect the HTML for the candidateTitle.
@@ -52,26 +52,17 @@ function normalizeTitle(title) {
  */
 async function verifyLink(url, candidateTitle) {
   try {
-    // For verifying HTML pages, we keep “Accept” as text/html.
-    // If it’s a direct comic link, we do not expect JSON.
     const response = await fetchWithHeaders(url);
-
-    // 1) Omegascans: if response.ok => valid
+    // 1) Omegascans: if response.ok => valid.
     if (url.includes("omegascans.org") && response.ok) {
       return true;
     }
-    // 2) Toongod: if 403 => assume valid
-    if (url.includes("toongod.org/webtoon") && response.status === 403) {
-      console.log(`verifyLink: Received 403 for "${url}". Assuming it is valid for Toongod.`);
+    // 2) Toongod and Comick: if status 403, assume valid.
+    if ((url.includes("toongod.org/webtoon") || url.includes("comick.io/comic")) && response.status === 403) {
+      console.log(`verifyLink: Received 403 for "${url}". Assuming it is valid.`);
       return true;
     }
-    // 3) Comick: if 403 => assume valid
-    if (url.includes("comick.io/comic") && response.status === 403) {
-      console.log(`verifyLink: Received 403 for "${url}". Assuming it is valid for Comick.`);
-      return true;
-    }
-
-    // If response is OK, we can do an HTML check:
+    // Otherwise, if response.ok, check HTML.
     if (response.ok) {
       const html = await response.text();
       const normCandidate = candidateTitle.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -141,7 +132,6 @@ async function searchOmegascansScrape(title) {
     console.log(`[Omegascans] Candidate links found:`, candidates);
     const slug = normalizeTitle(title);
     if (!slug) return null;
-
     for (let link of candidates) {
       if (link.toLowerCase().includes(slug)) {
         console.log(`[Omegascans] Found matching link for "${title}": ${link}`);
@@ -186,7 +176,6 @@ async function searchToongodDirect(title) {
       console.log(`[Toongod] Received 403 for direct URL. Assuming URL is valid: ${url}`);
       return url;
     } else {
-      // Check if we have that known "disciplining -> discipling" edge case
       if (slug.includes("disciplining")) {
         const altSlug = slug.replace("disciplining", "discipling");
         url = `${baseUrl}${altSlug}/`;
@@ -228,7 +217,6 @@ async function searchToongodScrape(title) {
     console.log(`[Toongod] Candidate links found:`, candidates);
     const slug = normalizeTitle(title);
     if (!slug) return null;
-
     for (let link of candidates) {
       if (link.toLowerCase().includes(slug)) {
         console.log(`[Toongod] Found matching link for "${title}": ${link}`);
@@ -253,22 +241,23 @@ async function searchToongod(title) {
    ============================================ */
 
 /**
- * We will do a small helper that fetches JSON from comick's API with more “friendly” headers.
+ * Fetches JSON from Comick's API using extra headers to mimic a browser.
+ * @param {string} url - The API URL.
+ * @returns {Promise<Response>}
  */
 async function fetchComickJson(url) {
-  // Provide a user-agent that’s not too suspicious, and accept JSON.
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-      "Accept": "application/json,text/plain,*/*",
-      "Accept-Language": "en-US,en;q=0.8"
-    }
-  });
-  return response;
+  const headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.8",
+    "Origin": "https://comick.io",
+    "Referer": "https://comick.io/"
+  };
+  return await fetch(url, { headers });
 }
 
 /**
- * Attempts to search Comick for the first matching result.
+ * Attempts to search Comick for the manga using their API.
  * If found, returns the full comic URL (https://comick.io/comic/{slug}).
  */
 async function searchComickForTitle(title) {
@@ -281,32 +270,18 @@ async function searchComickForTitle(title) {
       console.log(`[Comick] API search failed with status ${response.status}`);
       return null;
     }
-    // The JSON from comick for a search returns an array or an object, depending on the query.
-    // Usually, for ?limit=1, it might return an array with one item or an object with .id, .slug, etc.
     const jsonData = await response.json();
-    // The shape can vary. If the search hits, we often get { id, slug, title, ... } in the first item.
-    // Let's handle it carefully:
-    if (Array.isArray(jsonData)) {
-      // If it's an array, the first item might have "slug"
-      if (jsonData.length === 0) return null;
-      if (jsonData[0].slug) {
-        const finalUrl = `https://comick.io/comic/${jsonData[0].slug}`;
-        console.log(`[Comick] Found slug "${jsonData[0].slug}" for title "${title}", final URL: ${finalUrl}`);
-        return finalUrl;
-      }
-    } else {
-      // Some versions of the Comick API might return a direct object with .slug
-      if (jsonData.slug) {
-        const finalUrl = `https://comick.io/comic/${jsonData.slug}`;
-        console.log(`[Comick] Found slug "${jsonData.slug}" for title "${title}", final URL: ${finalUrl}`);
-        return finalUrl;
-      }
-      // Or if the result is in jsonData[0], etc.
-      if (jsonData[0] && jsonData[0].slug) {
-        const finalUrl = `https://comick.io/comic/${jsonData[0].slug}`;
-        console.log(`[Comick] Found slug "${jsonData[0].slug}" for title "${title}", final URL: ${finalUrl}`);
-        return finalUrl;
-      }
+    // The result may be an array or an object. We handle both cases.
+    let slug = null;
+    if (Array.isArray(jsonData) && jsonData.length > 0 && jsonData[0].slug) {
+      slug = jsonData[0].slug;
+    } else if (jsonData && jsonData.slug) {
+      slug = jsonData.slug;
+    }
+    if (slug) {
+      const finalUrl = `https://comick.io/comic/${slug}`;
+      console.log(`[Comick] Found slug "${slug}" for title "${title}", final URL: ${finalUrl}`);
+      if (await verifyLink(finalUrl, title)) return finalUrl;
     }
     return null;
   } catch (error) {
@@ -316,19 +291,20 @@ async function searchComickForTitle(title) {
 }
 
 /* ============================================
-   Combined External Search
+   Combined External Search Across Websites
    ============================================ */
 
 /**
  * Iterates over an array of candidate titles and tries external search functions.
- * - For adult manga, only Omegascans & Toongod.
- * - For non-adult manga, only Comick.
+ * - For adult manga, only Omegascans & Toongod are used.
+ * - For non-adult manga, only Comick is used.
  *
  * Returns an object with website keys and an array of unique links for each,
  * or null if nothing found.
  *
- * @param {string[]} titles - Candidate titles
- * @param {boolean} isAdult - If true => search Omegascans, Toongod; else => Comick
+ * @param {string[]} titles - Candidate titles.
+ * @param {boolean} isAdult - If true, search Omegascans & Toongod; else, use Comick.
+ * @returns {Promise<Object|null>}
  */
 async function searchExternal(titles, isAdult) {
   let websites;
@@ -338,13 +314,9 @@ async function searchExternal(titles, isAdult) {
       { name: 'Toongod', searchFunc: searchToongod }
     ];
   } else {
+    // For non-adult content, we only check Comick.
     websites = [
-      { name: 'Comick', searchFunc: async (title) => {
-          // We might want to search multiple candidate titles on Comick
-          // but in this approach, we just do it one by one.
-          return await searchComickForTitle(title);
-        }
-      }
+      { name: 'Comick', searchFunc: async (title) => await searchComickForTitle(title) }
     ];
   }
 
@@ -354,24 +326,31 @@ async function searchExternal(titles, isAdult) {
     results[site.name] = new Set();
   }
 
-  for (const title of titles) {
-    console.log(`\n=== Trying title "${title}" ===`);
+  if (!isAdult) {
+    // For non-adult content, use only the first candidate title.
+    const title = titles[0];
+    console.log(`Non-adult content: using only first candidate title "${title}" for Comick search.`);
     for (const site of websites) {
-      console.log(`Trying ${site.name} for title "${title}"`);
       const candidateLink = await site.searchFunc(title);
-      if (candidateLink) {
-        // Verify the link if we want. But note that Comick often returns 403
-        // for direct page fetch. We can skip verification or handle it carefully.
-        if (await verifyLink(candidateLink, title)) {
+      if (candidateLink && await verifyLink(candidateLink, title)) {
+        results[site.name].add(candidateLink);
+      }
+    }
+  } else {
+    // For adult content, iterate over all candidate titles.
+    for (const title of titles) {
+      console.log(`\n=== Trying title "${title}" ===`);
+      for (const site of websites) {
+        console.log(`Trying ${site.name} for title "${title}"`);
+        const candidateLink = await site.searchFunc(title);
+        if (candidateLink && await verifyLink(candidateLink, title)) {
           results[site.name].add(candidateLink);
-        } else {
-          console.log(`Verification failed for candidate link: ${candidateLink}`);
         }
       }
     }
   }
 
-  // Convert sets to arrays and remove empty ones
+  // Convert sets to arrays and remove keys with empty arrays.
   const finalResults = {};
   for (const site of websites) {
     const siteLinks = Array.from(results[site.name]);

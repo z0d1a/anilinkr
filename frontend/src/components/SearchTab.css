@@ -1,0 +1,66 @@
+/* src/components/SearchTab.css */
+.search-tab-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    text-align: center;
+    background-color: #2e303e; /* dark background */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  
+  .search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 1px solid #4c4f69;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    background-color: #3a3d4b;
+    color: #cad3f5;
+  }
+  
+  .search-button {
+    padding: 10px 16px;
+    font-size: 1.2rem;
+    border: none;
+    background-color: #f5a97f;
+    color: #1e2030;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.2s;
+  }
+  
+  .search-button:hover {
+    background-color: #d38e6e;
+  }
+  
+  .loading-text {
+    color: #a5adcb;
+    font-size: 1rem;
+  }
+  
+  .error-text {
+    color: #ed8796;
+    font-size: 1rem;
+  }
+  
+  .search-result {
+    margin-top: 16px;
+    background-color: #363a4f;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .search-result a {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  

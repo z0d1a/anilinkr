@@ -1,0 +1,93 @@
+/* src/components/FeaturedCarousel.css */
+
+/* Basic container styling */
+.featured-carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    position: relative;
+    /* For a dark background or see-through effect: */
+    background-color: transparent; /* or #1e2030, etc. */
+  }
+  
+  .carousel-heading {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  
+  /* The slick slider's default container */
+  .slick-slider {
+    position: relative;
+  }
+  
+  /* The slides themselves */
+  .featured-carousel-slide {
+    outline: none; /* remove the focus ring on click */
+    padding: 8px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    /* By default, we can scale them down a bit */
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  
+  /* The center slide is highlighted by react-slick with a .slick-center class */
+  .slick-center .featured-carousel-slide {
+    transform: scale(1.05);
+    opacity: 1;
+    z-index: 2;
+  }
+  
+  /* For the images */
+  .carousel-cover {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #4c4f69;
+  }
+  
+  /* Title styling inside the slide */
+  .carousel-title {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    text-align: center;
+    color: #cad3f5;
+  }
+  
+  /* Make the entire slide clickable */
+  .carousel-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Optional: add a subtle fade overlay on the left/right edges of the slider */
+  .slick-list {
+    position: relative;
+  }
+  
+  /* The overlay for the left edge */
+  .slick-list:before,
+  .slick-list:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 80px;  /* how wide the fade is */
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+  }
+  
+  /* left side fade */
+  .slick-list:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0) 0%, #1e2030 100%);
+  }
+  
+  /* right side fade */
+  .slick-list:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0) 0%, #1e2030 100%);
+  }
+  

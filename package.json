@@ -6,6 +6,18 @@
         "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
     },
     "devDependencies": {
-        "concurrently": "^7.6.0"
+        "concurrently": "^7.6.0",
+        "eslint-plugin-react-hooks": "^5.2.0"
+    },
+    "dependencies": {
+        "bcryptjs": "^3.0.2",
+        "cors": "^2.8.5",
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-markdown": "^10.1.0",
+        "react-slick": "^0.30.3",
+        "slick-carousel": "^1.8.1"
     }
 }

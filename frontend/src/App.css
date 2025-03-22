@@ -1,20 +1,72 @@
 /* src/App.css */
 
-/* Global Dark Theme */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #1e2030; /* dark mantle */
-    color: #cad3f5; /* light text */
-  }
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #1e2030; /* dark mantle */
+  color: #cad3f5; /* light text */
+}
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.content {
+  padding: 16px;
+}
+
+/* Navigation Styles */
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
   
-  .App {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 16px;
-  }
+  /* Gradient text */
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  background: linear-gradient(to right, #f5a97f, #8aadf4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   
-  .content {
-    padding: 16px;
-  }
+  /* Padding around the text so the box is bigger than the text */
+  padding: 8px 12px;
   
+  /* Animate transforms & color changes smoothly */
+  transition: transform 0.3s ease;
+}
+
+/* The “box” behind each link, absolutely positioned */
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
+  z-index: -1;
+
+  background-color: #24273a; /* initial box color */
+  border: 1px solid #363a4f;
+  border-radius: 8px;
+  
+  /* Subtle shadow for normal state */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  
+  /* Animate these properties as well */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-link:hover::before {
+  /* Change background color a bit */
+  background-color: #2a2d3a;
+  /* Increase the shadow and scale the box a little more than the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  transform: scale(1.06);
+}

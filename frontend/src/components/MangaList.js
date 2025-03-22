@@ -1,19 +1,19 @@
-// src/components/MangaList.js
 import React, { useState, useEffect } from 'react';
 import { getMangaList } from '../services/api';
 import MangaItem from './MangaItem';
 import Fuse from 'fuse.js';
+import SpotlightSearch from './SpotlightSearch'; // Spotlight search component
 import './MangaList.css';
 
 const MangaList = () => {
   const [mangaList, setMangaList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // Default to showing only adult content
-  const [showAdultOnly, setShowAdultOnly] = useState(true);
+  // Filter mode: 'adult', 'nonadult', or 'all'
+  const [filterMode, setFilterMode] = useState('nonadult');
   const [searchQuery, setSearchQuery] = useState('');
   // "list" or "grid"
-  const [viewMode, setViewMode] = useState('list');
+  const [viewMode, setViewMode] = useState('grid');
 
   useEffect(() => {
     const fetchManga = async () => {
@@ -23,6 +23,7 @@ const MangaList = () => {
         const data = await getMangaList();
         // Flatten all lists into one array.
         const allEntries = data.lists.flatMap(list => list.entries);
+
         // Deduplicate entries using media.id as key.
         const dedupedMap = new Map();
         allEntries.forEach(entry => {
@@ -37,8 +38,10 @@ const MangaList = () => {
           }
         });
         const dedupedEntries = Array.from(dedupedMap.values());
+
         // Sort by updatedAt descending.
         dedupedEntries.sort((a, b) => b.updatedAt - a.updatedAt);
+
         setMangaList(dedupedEntries);
       } catch (err) {
         setError('Failed to fetch manga list');
@@ -49,7 +52,8 @@ const MangaList = () => {
     fetchManga();
   }, []);
 
-  // Adult filter (your existing logic)
+  // Adult filter: a manga is considered adult if media.isAdult is true
+  // and at least one tag has isAdult === false.
   const isAdultContent = (manga) => {
     const mediaAdult = manga.media.isAdult === true;
     const tagAdult =
@@ -58,10 +62,16 @@ const MangaList = () => {
     return mediaAdult && tagAdult;
   };
 
-  // Apply adult filter.
-  const filteredManga = mangaList.filter(manga =>
-    showAdultOnly ? isAdultContent(manga) : true
-  );
+  // Apply filter based on the current filterMode.
+  let filteredManga;
+  if (filterMode === 'adult') {
+    filteredManga = mangaList.filter(manga => isAdultContent(manga));
+  } else if (filterMode === 'nonadult') {
+    filteredManga = mangaList.filter(manga => !isAdultContent(manga));
+  } else {
+    // 'all' – show all manga.
+    filteredManga = mangaList;
+  }
 
   // Apply Fuse.js fuzzy search on the filtered list.
   let displayedManga = filteredManga;
@@ -73,7 +83,7 @@ const MangaList = () => {
         'media.title.native',
         'media.synonyms'
       ],
-      threshold: 0.3, // Adjust for desired fuzziness
+      threshold: 0.3, // Adjust threshold for desired fuzziness.
     };
     const fuse = new Fuse(filteredManga, fuseOptions);
     const results = fuse.search(searchQuery);
@@ -86,47 +96,66 @@ const MangaList = () => {
 
   return (
     <div className="manga-list-container">
-      <h2>Manga List (Sorted by Last Updated)</h2>
-      <div className="control-panel">
+      {/* TOP ROW: Centered Heading */}
+
+
+      {/* SECOND ROW: Search Bar on the left, SpotlightSearch on the right */}
+      <div className="second-row">
+        <div className="search-bar-left">
+          <input
+            type="text"
+            placeholder="Search manga..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div className="spotlight-right">
+          <SpotlightSearch />
+        </div>
+      </div>
+
+      {/* THIRD ROW: Filter buttons on left, View toggles on right */}
+      <div className="third-row">
         <div className="filter-buttons">
           <button
-            onClick={() => setShowAdultOnly(true)}
-            className={showAdultOnly ? 'active' : ''}
+            onClick={() => setFilterMode('adult')}
+            className={filterMode === 'adult' ? 'active' : ''}
           >
             Adult Only
           </button>
           <button
-            onClick={() => setShowAdultOnly(false)}
-            className={!showAdultOnly ? 'active' : ''}
+            onClick={() => setFilterMode('nonadult')}
+            className={filterMode === 'nonadult' ? 'active' : ''}
+          >
+            Non-Adult Only
+          </button>
+          <button
+            onClick={() => setFilterMode('all')}
+            className={filterMode === 'all' ? 'active' : ''}
           >
             Show All
           </button>
         </div>
+
         <div className="view-toggle">
           <button
             onClick={() => setViewMode('list')}
             className={viewMode === 'list' ? 'active' : ''}
+            title="List View"
           >
-            List View
+            <span className="icon-list">≣</span>
           </button>
           <button
             onClick={() => setViewMode('grid')}
             className={viewMode === 'grid' ? 'active' : ''}
+            title="Grid View"
           >
-            Grid View
+            <span className="icon-grid">▦</span>
           </button>
         </div>
       </div>
 
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search manga..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
+      {/* MANGA ITEMS */}
       {displayedManga.length === 0 ? (
         <p>No manga match your search.</p>
       ) : (

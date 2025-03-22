@@ -1,0 +1,257 @@
+/* src/components/SpotlightSearch.css */
+
+/* ==============================
+   TRIGGER BUTTON
+   ============================== */
+   .spotlight-trigger-btn {
+    background-color: #8aadf4; /* pastel blue accent */
+    color: #1e2030;            /* dark text */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .spotlight-trigger-btn:hover {
+    background-color: #7c9ce4;
+    transform: translateY(-1px);
+  }
+  
+  /* ==============================
+     OVERLAY CONTAINER
+     ============================== */
+  .spotlight-overlay {
+    position: fixed;  /* so background doesn’t scroll */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999; /* ensures overlay is above all other content */
+    overflow: hidden; /* no scrolling background */
+  }
+  
+  /* ==============================
+     BACKDROP
+     ============================== */
+  .spotlight-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    z-index: 10; /* below the modal, but above main page */
+  }
+  
+  /* ==============================
+     MODAL
+     ============================== */
+  .spotlight-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 90%;
+    max-height: 80vh; /* if results are too tall, scroll inside */
+    background-color: #2e303e; /* dark card color */
+    border: 1px solid #4c4f69;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    padding: 16px;
+    z-index: 20; /* above the backdrop */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* enable scrolling in the modal if needed */
+  }
+  
+  /* ==============================
+     HEADER
+     ============================== */
+  .spotlight-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .spotlight-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #cad3f5;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    color: #f2cdcd; /* soft pink highlight */
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* ==============================
+     BODY
+     ============================== */
+  .spotlight-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* Row for input + “Go” button */
+  .spotlight-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .spotlight-input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #4c4f69;
+    background-color: #24273a;
+    color: #cad3f5;
+    font-size: 0.95rem;
+    outline: none;
+  }
+  
+  .spotlight-input::placeholder {
+    color: #a5adcb;
+  }
+  
+  /* The “Go” button */
+  .search-btn {
+    background-color: #8aadf4;
+    color: #1e2030;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  
+  .search-btn:hover {
+    background-color: #7c9ce4;
+  }
+  
+  /* ==============================
+     STATUS MESSAGES
+     ============================== */
+  .loading-text {
+    font-size: 0.9rem;
+    color: #a5adcb;
+  }
+  
+  .error-text {
+    font-size: 0.9rem;
+    color: #ed8796; /* pastel red/pink */
+  }
+  
+  /* ==============================
+     RESULTS LIST
+     ============================== */
+  .spotlight-results {
+    margin-top: 8px;
+    border-top: 1px solid #4c4f69;
+    padding-top: 8px;
+  }
+  
+  .spotlight-result-item {
+    margin-bottom: 12px;
+    color: #cad3f5;
+  }
+  
+  .spotlight-result-item h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    color: #f0f6fc;
+  }
+  
+  .spotlight-result-item span {
+    font-size: 0.85rem;
+    color: #a5adcb;
+    margin-left: 4px;
+  }
+  
+  .spotlight-result-link {
+    display: inline-block;
+    margin-bottom: 4px;
+    color: #8aadf4;
+    text-decoration: none;
+    word-break: break-all; /* handle long URLs */
+  }
+  
+  .spotlight-result-link:hover {
+    text-decoration: underline;
+  }
+  
+  .spotlight-result-item p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #a5adcb;
+    line-height: 1.4;
+  }
+
+
+  /* Container for the radio buttons */
+.spotlight-site-toggle {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+  }
+  
+  /* Each label wraps the input + bullet + text */
+  .radio-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem; /* Adjust to taste */
+    color: #cad3f5;    /* A lighter text color */
+  }
+  
+  /* Hide the native radio, but keep it accessible for screen readers */
+  .radio-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* The custom bullet (the "span.custom-radio") */
+  .radio-label .custom-radio {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f5a97f; /* peach accent border */
+    border-radius: 50%;
+    margin-right: 8px;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  /* The “checked” state: fill the bullet */
+  .radio-label input[type="radio"]:checked + .custom-radio {
+    background-color: #f5a97f;
+    border-color: #f5a97f;
+  }
+  
+  /* Hover effect: lighten the border or fill slightly */
+  .radio-label:hover .custom-radio {
+    border-color: #d38e6e;
+  }
+  
+  /* You can also add a subtle box-shadow for a “raised” effect if you want: */
+  .radio-label .custom-radio:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+  

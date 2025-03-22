@@ -1,71 +1,108 @@
 /* src/components/MangaList.css */
 
 .manga-list-container {
-    padding: 16px;
-    color: #cad3f5;
-  }
-  
-  .control-panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-  
-  .filter-buttons,
-  .view-toggle {
-    margin-bottom: 8px;
-  }
-  
-  .filter-buttons button,
-  .view-toggle button {
-    margin-right: 8px;
-    background-color: #ccc;
-    color: #000;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .filter-buttons button.active,
-  .view-toggle button.active {
-    background-color: #007BFF;
-    color: #fff;
-  }
-  
-  .search-bar {
-    margin-bottom: 16px;
-  }
-  
-  .search-bar input {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px 12px;
-    font-size: 1rem;
-    border: 1px solid #444;
-    border-radius: 6px;
-    background-color: #2a2d3a;
-    color: #cad3f5;
-  }
-  
-  .search-bar input::placeholder {
-    color: #7a7f9a;
-  }
-  
-  /* List view styling */
-  .manga-list.list-view {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  /* Grid view styling */
-  .manga-list.grid-view {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  
+  padding: 16px;
+  color: #cad3f5;
+}
+
+/* TOP ROW: Centered Heading */
+.heading-row {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* SECOND ROW: Search Bar on left, SpotlightSearch on right */
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-bar-left input {
+  width: 280px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #2a2d3a;
+  color: #cad3f5;
+}
+
+.search-bar-left input::placeholder {
+  color: #7a7f9a;
+}
+
+.spotlight-right {
+  /* You can adjust this container to your liking */
+}
+
+/* THIRD ROW: Filter Buttons on left, View Toggle on right */
+.third-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-buttons button {
+  margin-right: 8px;
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.filter-buttons button.active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.view-toggle button {
+  margin-right: 8px;
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.view-toggle button.active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+/* Simple text-based icons for list/grid toggles */
+.icon-list {
+  font-size: 1.1rem;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+}
+
+.icon-grid {
+  font-size: 1.2rem;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+}
+
+/* MANGA LIST THEMES */
+/* List view styling */
+.manga-list.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Grid view styling */
+.manga-list.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
