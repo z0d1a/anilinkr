@@ -79,15 +79,11 @@ The Manga Tracker Dashboard connects to the AniList GraphQL API to retrieve your
    
 ## Usage
 
-**Method 1: Seperate Terminals**
-  1. **Backend**
-     Open a terminal, navigate to the backend, and run:
+**Method 1: Same Terminals**
+  1. **Root**
+     Open a terminal, navigate to the root (not backend or frontend), and run:
      ```bash
       npm run dev
-  2. **Frontend**
-     Open another terminal, navigate to the frontend folder, and run:
-     ```bash
-      npm start
      
 ### Using the Dashboard
 **Filter and Search:**
